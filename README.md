@@ -32,7 +32,7 @@ The project also generates a log file to record every operation and uses excepti
 ## Project Structure
 
 ```text
-FileOrganizer/
+Pyhton Automation Script/
 │
 ├── main.py
 ├── operations.log
@@ -108,7 +108,7 @@ TestFolder/
 
 ---
 
-## Sample Console Output
+## Sample Console Output Shows
 
 ```text
 Enter folder path:
@@ -120,7 +120,7 @@ Check operations.log for details.
 
 ---
 
-## Sample Log File
+## In Sample Log File You See
 
 ```text
 2026-07-09 18:30:21 - photo.jpg moved to Images
@@ -149,13 +149,13 @@ git clone <repository-url>
 2. Navigate to the project folder.
 
 ```bash
-cd FileOrganizer
+cd Python Automation Script
 ```
 
 3. Run the program.
 
 ```bash
-python organizer.py
+python main.py
 ```
 
 4. Enter the folder path when prompted.
