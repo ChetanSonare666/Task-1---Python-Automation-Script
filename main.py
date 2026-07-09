@@ -10,5 +10,9 @@ else:
     print("Folder Not Found")
 
 files = os.listdir(folder)
+\
 for file in files:
-    print(file)
+    path = os.path.join(folder,file)
+    
+    if os.path.isfile(path):
+        print(file)
