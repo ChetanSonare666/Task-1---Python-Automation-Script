@@ -35,3 +35,5 @@ else:
 destination = os.path.join(folder,folder_name)
 
 os.makedirs(destination,exist_ok=True)
+
+shutil.move(path, os.path.join(destination, file))
