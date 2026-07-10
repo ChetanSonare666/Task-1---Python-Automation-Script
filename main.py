@@ -37,3 +37,11 @@ destination = os.path.join(folder,folder_name)
 os.makedirs(destination,exist_ok=True)
 
 shutil.move(path, os.path.join(destination, file))
+
+logging.basicConfig(
+    filename = "operations.log",
+    level = logging.INFO,
+    format = "%(asctimme)s - %(message)s"
+)
+
+logging.info(f"{file}moved to {folder_name}")
