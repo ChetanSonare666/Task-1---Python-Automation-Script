@@ -19,3 +19,12 @@ for file in files:
         extension = os.path.splitext(file)[1].lower()
         print(file,extension)
     
+categories = {
+    "Images" : [".jpg",".jpeg",".png",".gif"],
+    "Documents" : [".pdf",".doc",".docx",".txt"],
+    "Videos" : [".mp4", ".mkv",".avi"],
+    "Music" : [".mp3",".wav"],
+    "Programs" : [".exe",".msi"],
+    "Archives" : [".zip",".rar",".7z"]
+}
+
