@@ -28,3 +28,10 @@ categories = {
     "Archives" : [".zip",".rar",".7z"]
 }
 
+if extension in categories:
+    folder_name = categories[extension]
+else:
+    folder_name = "Others"
+destination = os.path.join(folder,folder_name)
+
+os.makedirs(destination,exist_ok=True)
