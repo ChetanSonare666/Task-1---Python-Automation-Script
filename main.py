@@ -1,52 +1,70 @@
 import os
 import shutil
-import logging 
+import logging
+
+# Logging Configuration
+logging.basicConfig(
+    filename="operations.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
+# File Categories
+categories = {
+    "Images": [".jpg", ".jpeg", ".png", ".gif"],
+    "Documents": [".pdf", ".doc", ".docx", ".txt"],
+    "Videos": [".mp4", ".mkv", ".avi"],
+    "Music": [".mp3", ".wav"],
+    "Programs": [".exe", ".msi"],
+    "Archives": [".zip", ".rar", ".7z"]
+}
+
+folder_path = input("Enter folder path: ")
+
+if not os.path.exists(folder_path):
+    print("Folder does not exist.")
+    exit()
 
 try:
-    folder = input("Enter folder path : ")
+    for file in os.listdir(folder_path):
 
-    if os.path.isdir(folder):
-        print("Folder Found")
-    else:
-        print("Folder Not Found")
+        file_path = os.path.join(folder_path, file)
 
-        files = os.listdir(folder)
+        if os.path.isfile(file_path):
 
-        for file in files:
-            path = os.path.join(folder,file)
-    
-        if os.path.isfile(path):
-        
             extension = os.path.splitext(file)[1].lower()
-            print(file,extension)
-    
-        categories = {
-            "Images" : [".jpg",".jpeg",".png",".gif"],
-            "Documents" : [".pdf",".doc",".docx",".txt"],
-            "Videos" : [".mp4", ".mkv",".avi"],
-            "Music" : [".mp3",".wav"],
-            "Programs" : [".exe",".msi"],
-            "Archives" : [".zip",".rar",".7z"]
-            }
 
-        if extension in categories:
-            folder_name = categories[extension]
-        else:
-            folder_name = "Others"
-            destination = os.path.join(folder,folder_name)
+            moved = False
 
-        os.makedirs(destination,exist_ok=True)
+            for category, extensions in categories.items():
 
-        shutil.move(path, os.path.join(destination, file))
+                if extension in extensions:
 
-        logging.basicConfig(
-        filename = "operations.log",
-        level = logging.INFO,
-        format = "%(asctimme)s - %(message)s"
-        )
-        
-        logging.info(f"{file}moved to {folder_name}")
+                    destination = os.path.join(folder_path, category)
+
+                    os.makedirs(destination, exist_ok=True)
+
+                    shutil.move(file_path, os.path.join(destination, file))
+
+                    logging.info(f"Moved {file} -> {category}")
+
+                    moved = True
+                    break
+
+            if not moved:
+
+                others = os.path.join(folder_path, "Others")
+
+                os.makedirs(others, exist_ok=True)
+
+                shutil.move(file_path, os.path.join(others, file))
+
+                logging.info(f"Moved {file} -> Others")
+
+    print("Organization Completed Successfully!")
 
 except Exception as e:
+
     logging.error(str(e))
-    print(e)
+
+    print("Error:", e)
