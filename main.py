@@ -2,46 +2,51 @@ import os
 import shutil
 import logging 
 
-folder = input("Enter folder path : ")
+try:
+    folder = input("Enter folder path : ")
 
-if os.path.isdir(folder):
-    print("Folder Found")
-else:
-    print("Folder Not Found")
+    if os.path.isdir(folder):
+        print("Folder Found")
+    else:
+        print("Folder Not Found")
 
-files = os.listdir(folder)
+        files = os.listdir(folder)
 
-for file in files:
-    path = os.path.join(folder,file)
+        for file in files:
+            path = os.path.join(folder,file)
     
-    if os.path.isfile(path):
+        if os.path.isfile(path):
         
-        extension = os.path.splitext(file)[1].lower()
-        print(file,extension)
+            extension = os.path.splitext(file)[1].lower()
+            print(file,extension)
     
-categories = {
-    "Images" : [".jpg",".jpeg",".png",".gif"],
-    "Documents" : [".pdf",".doc",".docx",".txt"],
-    "Videos" : [".mp4", ".mkv",".avi"],
-    "Music" : [".mp3",".wav"],
-    "Programs" : [".exe",".msi"],
-    "Archives" : [".zip",".rar",".7z"]
-}
+        categories = {
+            "Images" : [".jpg",".jpeg",".png",".gif"],
+            "Documents" : [".pdf",".doc",".docx",".txt"],
+            "Videos" : [".mp4", ".mkv",".avi"],
+            "Music" : [".mp3",".wav"],
+            "Programs" : [".exe",".msi"],
+            "Archives" : [".zip",".rar",".7z"]
+            }
 
-if extension in categories:
-    folder_name = categories[extension]
-else:
-    folder_name = "Others"
-destination = os.path.join(folder,folder_name)
+        if extension in categories:
+            folder_name = categories[extension]
+        else:
+            folder_name = "Others"
+            destination = os.path.join(folder,folder_name)
 
-os.makedirs(destination,exist_ok=True)
+        os.makedirs(destination,exist_ok=True)
 
-shutil.move(path, os.path.join(destination, file))
+        shutil.move(path, os.path.join(destination, file))
 
-logging.basicConfig(
-    filename = "operations.log",
-    level = logging.INFO,
-    format = "%(asctimme)s - %(message)s"
-)
+        logging.basicConfig(
+        filename = "operations.log",
+        level = logging.INFO,
+        format = "%(asctimme)s - %(message)s"
+        )
+        
+        logging.info(f"{file}moved to {folder_name}")
 
-logging.info(f"{file}moved to {folder_name}")
+except Exception as e:
+    logging.error(str(e))
+    print(e)
